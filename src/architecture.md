@@ -551,7 +551,9 @@ The agent does not replace human analysts. It supports them by organizing inform
 ## Author
 
 James Banday
-GitHub: https://github.com/jbanday808
+
+GitHub: https://github.com/jbanday808/ai-threat-hunt-agent-foundry
+
 LinkedIn: https://www.linkedin.com/in/james-allen-morta-banday-62a391128/
 
 ---
