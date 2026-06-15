@@ -462,7 +462,7 @@ The solution successfully passed all validation scenarios and achieved an overal
 
 James Banday
 
-GitHub: https://github.com/jbanday808
+GitHub: https://github.com/jbanday808/ai-threat-hunt-agent-foundry
 
 LinkedIn: https://www.linkedin.com/in/james-allen-morta-banday-62a391128/
 
