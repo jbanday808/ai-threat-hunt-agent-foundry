@@ -1848,7 +1848,7 @@ Future versions could connect more directly to live security tools and automate 
 
 James Banday  
 
-GitHub: https://github.com/jbanday808  
+GitHub: [https://github.com/jbanday808 ](https://github.com/jbanday808/ai-threat-hunt-agent-foundry) 
 
 LinkedIn: https://www.linkedin.com/in/james-allen-morta-banday-62a391128/
 
