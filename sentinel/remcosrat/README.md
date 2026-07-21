@@ -117,6 +117,29 @@ Security telemetry means records produced by systems, applications, network cont
 
 ---
 
+## MITRE ATT&CK Mapping
+
+### Static-Analysis Supported Techniques
+
+The following potential attacker techniques are static-analysis findings. They are not confirmed environment activity.
+
+| Technique | Name | Static-Analysis Evidence |
+|---|---|---|
+| T1059.005 | Visual Basic | The initial loader is an obfuscated VBS file designed to execute through Windows scripting. |
+| T1059.001 | PowerShell | The VBS stages and launches PowerShell using `Invoke-Expression`. |
+| T1047 | Windows Management Instrumentation | `Win32_ProcessStartup` and `Win32_Process` are used to start PowerShell through WMI. |
+| T1027.013 | Encrypted/Encoded File | The payload uses encoded content, extraction markers, character reversal, and Base64 encoding. |
+| T1105 | Ingress Tool Transfer | `Net.WebClient.DownloadData` retrieves the next-stage payload from remote infrastructure. |
+| T1140 | Deobfuscate/Decode Files or Information | The script extracts, reverses, and Base64-decodes the embedded content. |
+| T1620 | Reflective Code Loading | The decoded .NET assembly appears designed to load directly into the PowerShell process memory. |
+| T1564.003 | Hidden Window | `Win32_ProcessStartup` with `ShowWindow = 0` attempts to hide the PowerShell window from the user. |
+
+> **Assessment Note:** These mappings represent potential attacker techniques identified through static analysis. They do not prove that the behaviors occurred in a monitored environment. Dynamic analysis and endpoint telemetry are required to confirm actual execution.
+
+Confirmed environment activity requires corroborating dynamic-analysis results or endpoint telemetry; this repository documents no such confirmation.
+
+---
+
 ## KQL Query Guide
 
 Kusto Query Language is the search language used by Microsoft Sentinel. The hunting queries use a 30-day lookback where specified; analysts should adapt the period to the investigation scope and available retention.
