@@ -2,392 +2,478 @@
 
 ## Project Name
 
-AI Threat Hunt Agent in Microsoft Foundry
-
-## Purpose
-
-This document explains the key lessons learned while building, testing, validating, and documenting the `threat-hunt-agent`.
-
-The purpose of this project was to build an AI-powered SOC assistant that can help analysts review IOCs, investigate alerts, create threat hunts, improve detections, generate KQL, and produce clear shift handoff summaries.
-
-This explanation is written for a non-technical audience.
+Build Knowledge-Enhanced AI Agents with Foundry IQ
 
 ---
 
-## Step 1: Clear Instructions Matter
+## Overview
 
-One of the most important lessons learned is that AI performs better when it is given clear instructions.
+This document captures key lessons learned during the deployment and validation of a knowledge-enhanced AI agent using Microsoft Foundry IQ, Azure AI Search, Azure AI Projects SDK, Azure Identity, and Python.
 
-The `threat-hunt-agent` needed specific rules for:
-
-* IOC investigations
-* Malware analysis
-* Microsoft Sentinel alerts
-* MITRE ATT&CK mapping
-* KQL formatting
-* Detection review
-* Shift handoff summaries
-
-### Non-Technical Explanation
-
-An AI agent needs clear direction, just like a new employee needs a checklist or standard operating procedure.
-
-Without clear instructions, the agent may give answers that are too general or incomplete.
-
-### Lesson Learned
-
-Clear instructions improve consistency, quality, and reliability.
+The project successfully demonstrated how an enterprise AI assistant can retrieve information from connected knowledge sources and provide grounded responses based on uploaded documentation.
 
 ---
 
-## Step 2: Evidence Is More Important Than Assumptions
+# Lesson 1: Knowledge Quality Determines Response Quality
 
-A major lesson from this project is that the agent must use evidence before making conclusions.
+## Observation
 
-The agent was designed to avoid unsupported claims such as:
+The quality of AI responses depends heavily on the quality of the uploaded knowledge sources.
 
-* Saying a device is compromised without proof
-* Naming a malware family without enough evidence
-* Assigning a threat actor without validation
-* Raising severity based only on reputation
-
-### Non-Technical Explanation
-
-Just because something looks suspicious does not mean it is confirmed malicious.
-
-The agent must explain what is known, what is unknown, and what still needs to be checked.
-
-### Lesson Learned
-
-Good security investigations require evidence, not guesses.
+The agent can only retrieve and summarize information that exists within the connected knowledge base.
 
 ---
 
-## Step 3: Threat Intelligence Is Helpful, But Not Enough by Itself
+## Impact
 
-Threat intelligence helped the agent understand suspicious domains, hashes, and malware references.
+Well-structured documents produce:
 
-However, threat intelligence alone does not prove that an organization was attacked.
+* Better search results
+* More accurate responses
+* Improved summarization
+* Reduced hallucinations
 
-### Non-Technical Explanation
+Poorly formatted documents may result in:
 
-Threat intelligence is like a public warning list.
-
-It can say something is risky, but it does not automatically prove that the risk affected your environment.
-
-### Lesson Learned
-
-Threat intelligence should support an investigation, not replace actual evidence.
-
----
-
-## Step 4: AI Can Improve SOC Consistency
-
-The agent helped produce structured outputs for different SOC workflows.
-
-It supported:
-
-* Alert summaries
-* Severity ratings
-* Confidence ratings
-* MITRE ATT&CK mapping
-* KQL hunting queries
-* Escalation recommendations
-* Shift handoff summaries
-
-### Non-Technical Explanation
-
-The agent helps analysts follow the same process every time.
-
-This is useful because SOC teams often work across different shifts, alerts, and priorities.
-
-### Lesson Learned
-
-AI can help standardize security investigations and reporting.
+* Missing information
+* Incomplete answers
+* Reduced search accuracy
 
 ---
 
-## Step 5: Validation Testing Is Critical
+## Recommendation
 
-The project used a validation matrix to test the agent across multiple scenarios.
+Use:
 
-The validation covered:
+* Technical documentation
+* Deployment guides
+* Procedures
+* Policies
+* Architecture documents
 
-* IOC testing
-* Incident testing
-* Threat hunt testing
-* Detection testing
+Avoid:
 
-### Final Results
-
-| Metric      | Result    |
-| ----------- | --------- |
-| Total Tests | 11        |
-| Passed      | 11        |
-| Failed      | 0         |
-| Total Score | 147 / 154 |
-| Accuracy    | 95.5%     |
-
-### Non-Technical Explanation
-
-The validation matrix worked like a report card.
-
-It showed whether the agent was accurate, useful, and safe to use for SOC workflows.
-
-### Lesson Learned
-
-AI projects should be tested and scored before being trusted.
+* Incomplete documents
+* Outdated documentation
+* Unverified content
 
 ---
 
-## Step 6: KQL Output Must Be Reviewed
+# Lesson 2: Azure AI Search Is Critical
 
-The agent generated KQL queries for Microsoft Sentinel and Microsoft Defender XDR.
+## Observation
 
-KQL helps analysts search security logs for suspicious activity.
+Azure AI Search serves as the retrieval engine for the entire solution.
 
-### Non-Technical Explanation
-
-KQL is like a search command for security data.
-
-Even if the agent writes a useful query, an analyst should still review it before using it in a real environment.
-
-### Lesson Learned
-
-AI-generated queries are helpful, but they should be validated before production use.
+Without Azure AI Search, the agent cannot locate relevant information inside enterprise documents.
 
 ---
 
-## Step 7: Detection Engineering Requires Balance
+## Impact
 
-The detection review tests showed that good detections must balance security coverage and alert noise.
+The following validation question:
 
-A detection should catch real threats without creating too many unnecessary alerts.
+```text
+What is the service name of the Azure AI Search resource?
+```
 
-### Non-Technical Explanation
+returned:
 
-If an alarm goes off too often for normal activity, people may start ignoring it.
+```text
+caremedix-search
+```
 
-The agent helped identify ways to reduce false positives while keeping useful security coverage.
-
-### Lesson Learned
-
-Good detections should be accurate, useful, and manageable for analysts.
-
----
-
-## Step 8: False Positive Review Adds Real SOC Value
-
-The false positive review showed how the agent can help reduce unnecessary alerts.
-
-The agent recommended improvements such as:
-
-* Adding more context
-* Reviewing parent processes
-* Checking trusted administrators
-* Reviewing known software deployment tools
-* Improving detection logic
-
-### Non-Technical Explanation
-
-A false positive is an alert that looks suspicious but turns out to be normal.
-
-Reducing false positives helps analysts focus on real threats.
-
-### Lesson Learned
-
-AI can help reduce alert fatigue and improve SOC efficiency.
+because Azure AI Search successfully indexed the uploaded document.
 
 ---
 
-## Step 9: MITRE ATT&CK Mapping Helps Explain Behavior
+## Recommendation
 
-MITRE ATT&CK helped the agent describe suspicious behavior using a standard security framework.
+Always:
 
-Examples included:
+* Verify search indexing
+* Validate document ingestion
+* Confirm search connectivity
+* Test retrieval accuracy
 
-* PowerShell execution
-* Command-and-control behavior
-* Scheduled task persistence
-* Encoded command usage
-
-### Non-Technical Explanation
-
-MITRE ATT&CK gives security teams a common language to describe attacker behavior.
-
-This makes investigations easier to explain and document.
-
-### Lesson Learned
-
-ATT&CK mapping improves communication between analysts, engineers, and leadership.
+before publishing the agent.
 
 ---
 
-## Step 10: Shift Handoff Reporting Is Important
+# Lesson 3: Knowledge Bases Improve Grounding
 
-The agent generated shift handoff summaries for investigation continuity.
+## Observation
 
-Shift handoff summaries include:
+Connecting a knowledge base significantly improved response accuracy.
 
-* Current status
-* Key findings
-* Actions completed
-* Pending actions
-* Recommended next steps
+The agent was able to:
 
-### Non-Technical Explanation
+* Retrieve deployment details
+* Identify Azure resources
+* Summarize uploaded content
 
-SOC teams often work in shifts.
-
-A good handoff helps the next analyst quickly understand what happened and what still needs to be done.
-
-### Lesson Learned
-
-Clear handoff reporting improves teamwork and reduces missed investigation steps.
+without requiring additional prompts.
 
 ---
 
-## Step 11: Human Review Is Still Required
+## Impact
 
-The agent is designed to support analysts, not replace them.
+Grounded responses reduced unsupported AI-generated content.
 
-The final decision should still be made by a trained security professional.
+Example:
 
-### Non-Technical Explanation
-
-AI can organize information and suggest next steps, but people are still responsible for confirming the facts and making response decisions.
-
-### Lesson Learned
-
-AI works best as a force multiplier for analysts, not a replacement for them.
+```text
+Resource Group: Sentinel-RG
+Region: East US
+Azure AI Search Service: caremedix-search
+```
 
 ---
 
-## Step 12: Documentation Improves Project Value
+## Recommendation
 
-Creating GitHub documentation made the project easier to understand.
+Always connect:
 
-The documentation included:
+```text
+Knowledge Base
+```
 
-* README.md
-* architecture.md
-* validation-matrix.md
-* deployment-guide.md
-* security-controls.md
-* lessons-learned.md
-* Prompt files
-* Screenshots
-* Validation matrix
-
-### Non-Technical Explanation
-
-Documentation turns a technical project into a clear story.
-
-It helps recruiters, managers, and technical reviewers understand what was built and why it matters.
-
-### Lesson Learned
-
-A well-documented project is easier to review, explain, and present.
+before validating the agent.
 
 ---
 
-## Step 13: Portfolio Projects Need Measurable Results
+# Lesson 4: Clear Instructions Improve Results
 
-The validation score made the project stronger.
+## Observation
 
-Instead of only saying the agent worked, the project showed measurable results:
+Agent instructions have a major impact on response quality.
 
-* 11 total tests
-* 11 passed
-* 0 failed
-* 147 / 154 score
-* 95.5% accuracy
+The following instructions improved accuracy:
 
-### Non-Technical Explanation
+```text
+Always search the knowledge base before responding.
 
-Numbers make the project easier to understand and more credible.
+Provide concise responses based on retrieved information.
 
-They show that the project was tested instead of only described.
-
-### Lesson Learned
-
-Measurable results make a cybersecurity portfolio project more professional.
+Do not make assumptions.
+```
 
 ---
 
-## Step 14: Future Improvements
+## Impact
 
-The project can be improved by adding more test cases and deeper integrations.
+Responses became:
 
-### Future Enhancements
-
-* Add live Microsoft Sentinel integration
-* Add live Microsoft Defender XDR integration
-* Add identity investigation scenarios
-* Add phishing investigation scenarios
-* Add cloud security scenarios
-* Add automated validation scoring
-* Add dashboard reporting
-* Add more real-world SOC incident examples
-
-### Non-Technical Explanation
-
-The project is complete, but it can keep growing as new use cases are added.
-
-### Lesson Learned
-
-Good security tools improve over time through testing, feedback, and real-world use.
+* More accurate
+* More consistent
+* Better grounded
 
 ---
 
-## Final Summary
+## Recommendation
 
-This project showed that an AI-powered SOC assistant can help analysts investigate alerts, review IOCs, create threat hunts, improve detections, generate KQL, and produce shift handoff summaries.
+Use clear system instructions.
 
-The biggest lessons learned were:
-
-* Clear instructions improve AI quality
-* Evidence is more important than assumptions
-* Threat intelligence should support, not replace, investigation evidence
-* Validation testing is critical
-* Human analyst review is still required
-* Strong documentation makes the project easier to explain
-* Measurable results make the project more credible
-
-The `threat-hunt-agent` successfully passed all validation tests and demonstrated strong value as a SOC support tool.
+Avoid vague prompts.
 
 ---
 
-## References
+# Lesson 5: Validation Is Essential
 
-* Microsoft Foundry Documentation: https://learn.microsoft.com/azure/ai-foundry/
-* Microsoft Foundry Agents Documentation: https://learn.microsoft.com/azure/ai-foundry/agents/
-* Microsoft Sentinel Documentation: https://learn.microsoft.com/azure/sentinel/
-* Microsoft Defender XDR Documentation: https://learn.microsoft.com/defender-xdr/
-* Microsoft Defender Advanced Hunting Documentation: https://learn.microsoft.com/defender-xdr/advanced-hunting-overview
-* Kusto Query Language Documentation: https://learn.microsoft.com/kusto/query/
-* MITRE ATT&CK Framework: https://attack.mitre.org/
-* MITRE ATT&CK PowerShell Technique T1059.001: https://attack.mitre.org/techniques/T1059/001/
-* MalwareBazaar: https://bazaar.abuse.ch/
-* GitHub Docs: https://docs.github.com/
-* Git Documentation: https://git-scm.com/doc
-* Visual Studio Code Documentation: https://code.visualstudio.com/docs
-* Windows Subsystem for Linux Documentation: https://learn.microsoft.com/windows/wsl/
+## Observation
+
+Agent validation identified configuration issues early.
+
+Several test questions confirmed that:
+
+* Knowledge retrieval worked
+* Search indexing worked
+* Grounding worked
+* Summarization worked
 
 ---
 
-## Author
+## Validation Questions
 
-James Banday
+### Test 1
 
-GitHub: https://github.com/jbanday808/ai-threat-hunt-agent-foundry
+```text
+What is the service name of the Azure AI Search resource?
+```
 
-LinkedIn: https://www.linkedin.com/in/james-allen-morta-banday-62a391128/
+Expected:
+
+```text
+caremedix-search
+```
 
 ---
 
-## Disclaimer
+### Test 2
 
-This project is intended for educational, research, and portfolio purposes.
+```text
+What resource group was used?
+```
 
-All investigation findings generated by the AI agent should be validated using actual Microsoft Sentinel, Microsoft Defender XDR, endpoint, identity, network, and threat intelligence telemetry before making operational security decisions.
+Expected:
+
+```text
+Sentinel-RG
+```
+
+---
+
+### Test 3
+
+```text
+What region was selected?
+```
+
+Expected:
+
+```text
+East US
+```
+
+---
+
+### Test 4
+
+```text
+Summarize the uploaded document.
+```
+
+Expected:
+
+Grounded document summary.
+
+---
+
+## Recommendation
+
+Validate every deployment before production use.
+
+---
+
+# Lesson 6: Python SDK Simplifies Automation
+
+## Observation
+
+The Azure AI Projects SDK made it possible to execute agent requests programmatically.
+
+The same agent used in the Foundry Playground could also be accessed through Python.
+
+---
+
+## Benefits
+
+* Automation
+* Integration
+* Validation
+* Testing
+* Future application development
+
+---
+
+## Example Components
+
+```python
+DefaultAzureCredential()
+```
+
+```python
+AIProjectClient
+```
+
+---
+
+## Recommendation
+
+Use the Python SDK for:
+
+* Automated testing
+* Continuous validation
+* Enterprise integrations
+
+---
+
+# Lesson 7: Azure Identity Improves Security
+
+## Observation
+
+Azure Identity eliminated the need to hardcode credentials.
+
+Authentication was handled through:
+
+```python
+DefaultAzureCredential()
+```
+
+and:
+
+```powershell
+az login
+```
+
+---
+
+## Benefits
+
+* Improved security
+* Easier authentication
+* Reduced credential exposure
+
+---
+
+## Recommendation
+
+Never hardcode:
+
+* Passwords
+* Tokens
+* API Keys
+
+Use Azure Identity whenever possible.
+
+---
+
+# Lesson 8: Screenshot Documentation Helps Troubleshooting
+
+## Observation
+
+Screenshots provided evidence of successful deployment and validation.
+
+They also simplified troubleshooting and documentation.
+
+---
+
+## Benefits
+
+* Faster troubleshooting
+* Easier knowledge transfer
+* Better project documentation
+* Improved validation tracking
+
+---
+
+## Recommendation
+
+Capture screenshots for:
+
+* Resource creation
+* Agent configuration
+* Knowledge base setup
+* Validation testing
+* Python execution
+
+---
+
+# Lesson 9: Incremental Testing Reduces Errors
+
+## Observation
+
+Testing each component individually reduced troubleshooting time.
+
+Components tested:
+
+* Azure login
+* Foundry deployment
+* Agent creation
+* Knowledge base creation
+* Azure AI Search
+* Python SDK integration
+
+---
+
+## Recommendation
+
+Validate one component at a time.
+
+Avoid troubleshooting the entire solution simultaneously.
+
+---
+
+# Lesson 10: Enterprise AI Requires Governance
+
+## Observation
+
+Knowledge-enhanced AI systems require governance controls.
+
+Even grounded AI responses should be reviewed.
+
+---
+
+## Governance Recommendations
+
+Implement:
+
+* RBAC
+* Document review
+* Access controls
+* Validation testing
+* Change management
+
+---
+
+# Key Success Factors
+
+The following factors contributed to project success:
+
+| Success Factor     | Result                   |
+| ------------------ | ------------------------ |
+| Azure AI Search    | Successful retrieval     |
+| Knowledge Base     | Accurate grounding       |
+| Agent Instructions | Consistent responses     |
+| Python SDK         | Automation support       |
+| Azure Identity     | Secure authentication    |
+| Validation Testing | Verified functionality   |
+| Documentation      | Improved maintainability |
+
+---
+
+# Challenges Encountered
+
+| Challenge                      | Resolution                         |
+| ------------------------------ | ---------------------------------- |
+| Search indexing delays         | Allowed indexing to complete       |
+| Authentication configuration   | Used Azure CLI login               |
+| Knowledge retrieval validation | Created test questions             |
+| README image rendering         | Corrected markdown formatting      |
+| GitHub synchronization         | Performed commit and push workflow |
+
+---
+
+# Future Improvements
+
+Potential enhancements:
+
+* Multiple knowledge bases
+* Additional document repositories
+* Vector search optimization
+* Custom enterprise applications
+* API integrations
+* Monitoring dashboards
+* Automated validation pipelines
+
+---
+
+# Project Outcome
+
+The project successfully demonstrated:
+
+* Knowledge-enhanced AI agents
+* Grounded response generation
+* Azure AI Search integration
+* Microsoft Foundry IQ deployment
+* Python SDK automation
+* Enterprise AI implementation
+
+The solution provides a foundation for future enterprise AI deployments and knowledge retrieval systems.
+
+---
+
+# Summary
+
+Microsoft Foundry IQ combined with Azure AI Search and a connected knowledge base provides an effective approach for building enterprise AI assistants capable of retrieving information from trusted sources and delivering grounded responses.
+
+The project highlighted the importance of knowledge quality, validation testing, security, governance, and proper documentation in the successful deployment of enterprise AI solutions.

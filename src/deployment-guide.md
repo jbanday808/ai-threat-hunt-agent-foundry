@@ -1,475 +1,509 @@
 # Deployment Guide
 
-# AI Threat Hunt Agent in Microsoft Foundry
+## Project Name
 
-## Purpose
-
-This guide explains how the AI Threat Hunt Agent was designed, built, tested, validated, documented, and published to GitHub.
-
-The project demonstrates how Microsoft Foundry can be used to create an AI-powered cybersecurity assistant that helps Security Operations Center (SOC) teams investigate alerts, analyze indicators of compromise (IOCs), perform threat hunting, review detections, and generate structured investigation reports.
-
-This guide is written for both technical and non-technical audiences.
+Build Knowledge-Enhanced AI Agents with Foundry IQ
 
 ---
 
-# Project Overview
+## Deployment Overview
 
-The AI Threat Hunt Agent was developed using Microsoft Foundry and supported by a cybersecurity knowledge base containing threat hunting, malware analysis, incident response, and detection engineering documentation.
+This guide provides the complete step-by-step process for deploying a knowledge-enhanced AI agent using:
 
-The project focused on four primary cybersecurity functions:
+* Microsoft Foundry IQ
+* Azure AI Search
+* Azure AI Projects SDK
+* Azure Identity
+* Python
+* Azure CLI
 
-1. IOC Investigation
-2. Security Incident Investigation
-3. Threat Hunting
-4. Detection Engineering
-
-After development, the agent was validated using structured testing scenarios and published as a portfolio project in GitHub.
-
----
-
-# Solution Architecture Overview
-
-The solution consists of four major components:
-
-### Microsoft Foundry Agent
-
-The AI assistant responsible for analyzing security scenarios and generating investigation results.
-
-### Knowledge Base
-
-A centralized repository containing cybersecurity documentation and investigation references.
-
-### Validation Framework
-
-A structured testing process used to measure the accuracy and consistency of agent responses.
-
-### GitHub Repository
-
-The public portfolio repository used to document the project and store validation evidence.
-
-### Non-Technical Explanation
-
-Think of the solution as a digital security analyst supported by a training library, testing process, and documentation portal.
+The deployment creates an enterprise AI assistant capable of retrieving information from connected knowledge sources and providing grounded responses.
 
 ---
 
-# Step 1: Create the AI Agent
+# Phase 1: Environment Preparation
 
-### Actions Performed
+## Step 1: Open PowerShell
 
-1. Open Microsoft Foundry.
-2. Select **Build an Agent**.
-3. Create a new agent.
-4. Enter the name:
+Launch PowerShell as Administrator.
 
-```text
-threat-hunt-agent
-```
+Purpose:
 
-5. Publish the agent.
-
-### Purpose
-
-Creates the AI assistant responsible for cybersecurity investigations.
-
-### Non-Technical Explanation
-
-This step is similar to hiring a new employee and assigning them a security analyst role.
+* Install dependencies
+* Configure Azure authentication
+* Execute Python scripts
 
 ---
 
-# Step 2: Configure Agent Instructions
-
-### Instructions Included
-
-* SOC Investigation Workflow
-* Threat Hunting Procedures
-* IOC Analysis Methodology
-* Incident Response Guidance
-* MITRE ATT&CK Mapping
-* Detection Engineering Reviews
-* KQL Query Generation
-* Shift Handoff Reporting
-
-### Purpose
-
-Defines how the agent should investigate and respond.
-
-### Non-Technical Explanation
-
-This acts as the employee training manual and operating procedures.
-
----
-
-# Step 3: Upload Security Knowledge Sources
-
-### Knowledge Sources
-
-* Microsoft Sentinel Documentation
-* Microsoft Defender XDR Documentation
-* Threat Hunting Guides
-* Malware Analysis References
-* Detection Engineering Guides
-* MITRE ATT&CK Framework References
-* Incident Response Procedures
-
-### Purpose
-
-Provides trusted cybersecurity references.
-
-### Non-Technical Explanation
-
-This creates a digital library the agent can use when answering questions.
-
----
-
-# Step 4: Create and Connect the Knowledge Base
-
-### Configuration
-
-Knowledge Base Name:
-
-```text
-threat-hunt-kb
-```
-
-Description:
-
-```text
-Microsoft Sentinel, Defender XDR, Threat Hunting, Malware Analysis, IOC Analysis, MITRE ATT&CK, Detection Engineering, and Incident Response Knowledge Base.
-```
-
-Settings:
-
-* Retrieval Reasoning Effort: Medium
-* Output Mode: Answer Synthesis
-* Chat Completion Model: Selected Foundry Model
-
-### Purpose
-
-Allows the agent to retrieve supporting information before generating responses.
-
-### Non-Technical Explanation
-
-Instead of relying solely on memory, the agent can research information from its reference library.
-
----
-
-# Step 5: Validate IOC Investigations
-
-### Test Scenarios
-
-| Test ID | Scenario                    |
-| ------- | --------------------------- |
-| IOC-001 | Malicious Domain Validation |
-| IOC-002 | SHA256 Analysis Validation  |
-| IOC-003 | Unknown Domain Validation   |
-| IOC-004 | Benign Domain Validation    |
-| IOC-005 | Malicious Hash Validation   |
-
-### Purpose
-
-Validates IOC analysis capabilities.
-
-### Non-Technical Explanation
-
-This confirms the agent can distinguish between malicious, suspicious, benign, and unknown indicators.
-
----
-
-# Step 6: Validate Security Incident Investigations
-
-### Test Scenarios
-
-| Test ID | Scenario                              |
-| ------- | ------------------------------------- |
-| SEN-001 | DNS Beaconing Investigation           |
-| SEN-002 | PowerShell Execution Investigation    |
-| SEN-003 | Scheduled Task Creation Investigation |
-
-### Purpose
-
-Tests the agent's ability to investigate security alerts.
-
-### Non-Technical Explanation
-
-This confirms the agent can explain what happened during a security event.
-
----
-
-# Step 7: Validate Threat Hunting Capabilities
-
-### Test Scenarios
-
-| Test ID  | Scenario    |
-| -------- | ----------- |
-| HUNT-001 | ATT&CK Hunt |
-| HUNT-002 | IOC Hunt    |
-
-### Purpose
-
-Tests proactive threat hunting functionality.
-
-### Non-Technical Explanation
-
-Threat hunting searches for hidden threats before alerts are triggered.
-
----
-
-# Step 8: Validate Detection Engineering Capabilities
-
-### Test Scenarios
-
-| Test ID | Scenario              |
-| ------- | --------------------- |
-| DET-001 | Detection Review      |
-| DET-002 | False Positive Review |
-
-### Purpose
-
-Tests the agent's ability to improve detection quality.
-
-### Non-Technical Explanation
-
-This helps reduce unnecessary alerts while improving security visibility.
-
----
-
-# Step 9: Complete Validation Testing
-
-Validation results were recorded in:
-
-```text
-Threat-Hunt-Agent-Validation-Matrix.xlsx
-```
-
-### Final Results
-
-| Metric      | Result    |
-| ----------- | --------- |
-| Total Tests | 11        |
-| Passed      | 11        |
-| Failed      | 0         |
-| Total Score | 147 / 154 |
-| Accuracy    | 95.5%     |
-
-### Purpose
-
-Provides measurable evidence of project performance.
-
-### Non-Technical Explanation
-
-The validation matrix serves as the project's report card.
-
----
-
-# Step 10: Create the Local Project Structure
-
-Run:
-
-```bash
-mkdir -p ai-threat-hunt-agent-foundry
-cd ai-threat-hunt-agent-foundry
-mkdir -p img prompts src validation
-```
-
-### Purpose
-
-Creates the project workspace.
+## Step 2: Create Project Directory
 
 ### Command Overview
 
 Command:
 
-```bash
-mkdir -p ai-threat-hunt-agent-foundry
+```powershell
+mkdir foundry-agent-test
+cd foundry-agent-test
 ```
 
 Explanation:
 
-* mkdir: Creates a directory.
-* -p: Creates parent folders if needed.
-* ai-threat-hunt-agent-foundry: Project folder name.
+* mkdir: Creates project directory
+* cd: Changes directory
 
 Summary:
 
-Creates the project directory used to store all project files.
+Creates the local project workspace.
 
 ---
 
-# Step 11: Create Project Documentation
+## Step 3: Install Python
+
+Verify Python installation.
+
+### Command Overview
+
+Command:
+
+```powershell
+python --version
+```
+
+Explanation:
+
+* python: Launches Python
+* --version: Displays installed version
+
+Summary:
+
+Verifies Python is installed.
+
+Expected:
+
+```text
+Python 3.11.x
+```
+
+---
+
+## Step 4: Install Azure CLI
+
+Verify Azure CLI.
+
+### Command Overview
+
+Command:
+
+```powershell
+az version
+```
+
+Explanation:
+
+* az: Azure CLI
+* version: Displays installed version
+
+Summary:
+
+Verifies Azure CLI installation.
+
+---
+
+## Step 5: Create Virtual Environment
+
+### Command Overview
+
+Command:
+
+```powershell
+python -m venv venv
+```
+
+Explanation:
+
+* python: Python interpreter
+* -m venv: Creates virtual environment
+* venv: Environment name
+
+Summary:
+
+Creates isolated Python environment.
+
+---
+
+## Step 6: Activate Virtual Environment
+
+### Command Overview
+
+Command:
+
+```powershell
+.\venv\Scripts\Activate.ps1
+```
+
+Explanation:
+
+* Activates virtual environment
+
+Summary:
+
+Enables isolated package installation.
+
+Expected:
+
+```text
+(venv)
+```
+
+appears in PowerShell.
+
+---
+
+## Step 7: Install Azure SDK Packages
+
+### Command Overview
+
+Command:
+
+```powershell
+pip install azure-ai-projects azure-identity
+```
+
+Explanation:
+
+* azure-ai-projects: Foundry IQ SDK
+* azure-identity: Azure authentication library
+
+Summary:
+
+Installs required Python dependencies.
+
+---
+
+## Step 8: Authenticate to Azure
+
+### Command Overview
+
+Command:
+
+```powershell
+az login
+```
+
+Explanation:
+
+* az login: Opens Azure authentication window
+
+Summary:
+
+Authenticates Azure access.
+
+---
+
+# Phase 2: Deploy Microsoft Foundry Resource
+
+## Step 9: Open Azure AI Foundry
+
+Navigate to:
+
+```text
+https://ai.azure.com
+```
+
+Sign in using your Azure account.
+
+---
+
+## Step 10: Create Foundry Resource
 
 Create:
 
+| Setting        | Value              |
+| -------------- | ------------------ |
+| Resource Name  | foundry-iq-jbanday |
+| Resource Group | Sentinel-RG        |
+| Region         | East US            |
+
+Click:
+
 ```text
-README.md
-architecture.md
-deployment-guide.md
-validation-matrix.md
-security-controls.md
-lessons-learned.md
+Create
 ```
 
-### Purpose
-
-Documents project design, testing, and results.
-
-### Non-Technical Explanation
-
-Documentation allows others to understand the project without rebuilding it.
+Wait for deployment to complete.
 
 ---
 
-# Step 12: Add Project Artifacts
+## Step 11: Enable New Foundry Experience
 
-### Images
-
-Store screenshots and diagrams in:
+Enable:
 
 ```text
-img/
+New Foundry
 ```
 
-### Validation Evidence
-
-Store validation files in:
-
-```text
-validation/
-```
-
-### Purpose
-
-Provides visual proof and testing evidence.
+from the portal.
 
 ---
 
-# Step 13: Open the Project in VS Code
+# Phase 3: Create Agent
 
-Run:
+## Step 12: Create Agent
 
-```bash
-code .
+Navigate:
+
+```text
+Build
+→ Agents
+→ Create Agent
 ```
 
-### Purpose
+Configure:
 
-Opens the project for editing and management.
+| Setting    | Value                      |
+| ---------- | -------------------------- |
+| Agent Name | enterprise-knowledge-agent |
+| Model      | grok-4.3                   |
+| Voice Mode | Disabled                   |
 
 ---
 
-# Step 14: Create the GitHub Repository
+## Step 13: Configure Instructions
 
-Repository Name:
-
-```text
-ai-threat-hunt-agent-foundry
-```
-
-Description:
+Use:
 
 ```text
-AI-powered SOC and threat hunting assistant built in Microsoft Foundry.
+You are an enterprise knowledge assistant.
+
+Use the connected knowledge sources to answer questions.
+
+Provide accurate, concise responses based on retrieved information.
+
+Always search the knowledge base before responding.
+
+Include citations when available.
+
+If information is unavailable, respond:
+
+"I don't know based on the available knowledge sources."
+
+Do not make assumptions.
 ```
 
-Visibility:
-
-```text
-Public
-```
-
-### Purpose
-
-Creates the online project repository.
-
-### Non-Technical Explanation
-
-GitHub serves as the project's public portfolio site.
+Save configuration.
 
 ---
 
-# Step 15: Publish the Project to GitHub
+## Step 14: Publish Agent
 
-Run:
-
-```bash
-git init
-git add .
-git commit -m "Add AI Threat Hunt Agent project"
-git branch -M main
-git remote add origin https://github.com/jbanday808/ai-threat-hunt-agent-foundry.git
-git push -u origin main
-```
-
-### Purpose
-
-Uploads project files to GitHub.
-
-### Non-Technical Explanation
-
-These commands publish the project to the internet.
-
----
-
-# Step 16: Verify Successful Deployment
-
-Confirm the following exist:
+Click:
 
 ```text
-README.md
-img/
-prompts/
-src/
-validation/
+Publish
 ```
 
 Verify:
 
-* Images display correctly.
-* Documentation opens successfully.
-* Validation files are accessible.
-* Repository structure is complete.
+```text
+Version 5
+```
 
-### Purpose
-
-Confirms the project is fully published and portfolio-ready.
+appears.
 
 ---
 
-# Lessons Learned
+# Phase 4: Create Azure AI Search
 
-* AI improves investigation consistency.
-* Validation is critical before operational use.
-* High-quality instructions improve AI responses.
-* Threat intelligence should support evidence-based investigations.
-* Human analyst review remains essential.
+## Step 15: Create Search Resource
 
-### Lesson Learned
+Create:
 
-AI is most effective when it works with analysts, not instead of analysts.
+| Setting        | Value            |
+| -------------- | ---------------- |
+| Service Name   | caremedix-search |
+| Resource Group | Sentinel-RG      |
+| Region         | East US          |
 
----
-
-# Conclusion
-
-The AI Threat Hunt Agent demonstrates how Microsoft Foundry can be used to build an AI-powered cybersecurity assistant capable of supporting IOC analysis, incident investigations, threat hunting, detection engineering reviews, and SOC reporting.
-
-The solution successfully passed all validation scenarios and achieved an overall accuracy score of 95.5%, demonstrating consistent and repeatable investigation results.
+Deploy service.
 
 ---
 
-# Author
+# Phase 5: Create Knowledge Base
 
-James Banday
+## Step 16: Create Knowledge Base
 
-GitHub: https://github.com/jbanday808/ai-threat-hunt-agent-foundry
+Navigate:
 
-LinkedIn: https://www.linkedin.com/in/james-allen-morta-banday-62a391128/
+```text
+Knowledge
+→ Add
+→ Create Knowledge Base
+```
+
+Configure:
+
+| Setting | Value           |
+| ------- | --------------- |
+| Name    | knowledgebase42 |
 
 ---
 
-# Disclaimer
+## Step 17: Upload Knowledge Sources
 
-This project is intended for educational, research, demonstration, and portfolio purposes.
+Upload:
 
-All AI-generated findings should be validated using actual Microsoft Sentinel, Microsoft Defender XDR, endpoint, identity, network, and threat intelligence data before making operational security decisions.
+* Policies
+* Procedures
+* Technical Documentation
+* Deployment Guides
+
+Example:
+
+```text
+Build knowledge-enhanced AI agents with Foundry IQ.docx
+```
+
+---
+
+## Step 18: Configure Embedding Model
+
+Select:
+
+```text
+text-embedding-3-small
+```
+
+Create the knowledge base.
+
+---
+
+## Step 19: Connect Knowledge Base
+
+Navigate:
+
+```text
+Agent
+→ Knowledge
+→ Add
+```
+
+Select:
+
+```text
+knowledgebase42
+```
+
+Save configuration.
+
+---
+
+# Phase 6: Agent Validation
+
+## Step 20: Test Agent in Foundry Playground
+
+Example Questions:
+
+```text
+What is the service name of the Azure AI Search resource?
+```
+
+Expected Response:
+
+```text
+caremedix-search
+```
+
+---
+
+Question:
+
+```text
+What resource group was used?
+```
+
+Expected Response:
+
+```text
+Sentinel-RG
+```
+
+---
+
+Question:
+
+```text
+What region was selected?
+```
+
+Expected Response:
+
+```text
+East US
+```
+
+---
+
+Question:
+
+```text
+Summarize the uploaded document.
+```
+
+Expected Response:
+
+Grounded summary generated from uploaded document.
+
+---
+
+# Validation Screenshots
+
+## Figure 1: Azure AI Foundry Workflow
+
+![Azure AI Foundry Workflow](../images/Azure-AI-Foundry-Diagram.png)
+
+---
+
+## Figure 2: Azure AI Search Validation
+
+![Azure AI Search Validation](../images/enterprise-knowledge-agent-test-01.png)
+
+---
+
+## Figure 3: Resource Validation
+
+![Resource Validation](../images/enterprise-knowledge-agent-test-02.png)
+
+---
+
+## Figure 4: Document Summarization Validation
+
+![Document Summarization](../images/enterprise-knowledge-agent-output.png)
+
+---
+
+# Deployment Success Criteria
+
+| Validation                     | Result  |
+| ------------------------------ | ------- |
+| Foundry Resource Created       | Success |
+| Agent Published                | Success |
+| Knowledge Base Connected       | Success |
+| Azure AI Search Connected      | Success |
+| Search Queries Working         | Success |
+| Document Summarization Working | Success |
+| Python SDK Integration Working | Success |
+
+---
+
+# Deployment Summary
+
+This deployment creates an enterprise knowledge-enhanced AI assistant using Microsoft Foundry IQ and Azure AI Search.
+
+The deployed solution enables:
+
+* Knowledge retrieval
+* Enterprise search
+* Document summarization
+* Grounded AI responses
+* Python SDK integration
+* Future enterprise application integration
