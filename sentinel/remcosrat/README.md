@@ -159,6 +159,168 @@ The screenshot documents threat-intelligence import, not detection of activity. 
 
 ---
 
+## Evidence Gallery
+
+### Figure 1: RemcosRAT Execution Flow
+
+![Diagram of the suspected RemcosRAT loader sequence](../../images/remcosrat/RemcosRAT_Diagram.png)
+
+**Figure 1:** Suspected loader stages identified through static analysis.
+
+The diagram summarizes script execution, self-copying, hidden PowerShell, payload retrieval, decoding, and memory loading; static analysis means examining a file without running it. It represents behavior found in the file and does not prove that these steps occurred in a monitored environment.
+
+---
+
+### Figure 2: MalwareBazaar Sample Details
+
+![MalwareBazaar record for the authorized RemcosRAT analysis sample](../../images/remcosrat/RemcosRAT_RTFDump_01_MalwareBazaar_Sample_Details_35610632.png)
+
+**Figure 2:** MalwareBazaar reference information for the submitted sample.
+
+The page records the sample label, file details, and file fingerprints that provided the investigation's starting reference. It identifies a submitted sample but does not show that the file appeared within an organization.
+
+---
+
+### Figure 3: VirusTotal SHA-256 Verification
+
+![VirusTotal details used to verify the sample SHA-256](../../images/remcosrat/RemcosRAT_StaticAnalysis_02_VirusTotal_SHA256_Verification_35610632.png)
+
+**Figure 3:** VirusTotal information associated with the sample's SHA-256 fingerprint.
+
+The sample's SHA-256 file fingerprint, or hash, was compared with the value shown by VirusTotal. This long identifying value helps confirm that analysts are discussing the same file, but the page does not show activity in a monitored environment.
+
+---
+
+### Figure 4: Archive SHA-256 Verification
+
+![Terminal output recording the downloaded archive SHA-256](../../images/remcosrat/RemcosRAT_RTFDump_03_Archive_SHA256_Verification_435b4704.png)
+
+**Figure 4:** Calculated SHA-256 fingerprint for the downloaded archive.
+
+The terminal records the archive's file fingerprint to preserve evidence integrity and identify the exact archive being examined. This verifies the archive used for analysis, not whether anything inside it executed.
+
+---
+
+### Figure 5: Archive Metadata and Hash
+
+![Archive listing showing metadata and the contained file](../../images/remcosrat/RemcosRAT_StaticAnalysis_04_Archive_Metadata_and_SHA256_435b4704.png)
+
+**Figure 5:** Archive metadata documented before controlled extraction.
+
+The listing records the archive's name, size, type, and contents alongside its cryptographic fingerprint. This creates a traceable record of the original evidence before analysts handled the contained file.
+
+---
+
+### Figure 6: Controlled Sample Extraction
+
+![Terminal output from extracting the sample in an isolated environment](../../images/remcosrat/RemcosRAT_StaticAnalysis_05_Sample_Extraction_35610632.png)
+
+**Figure 6:** Controlled extraction of the suspicious file for examination.
+
+The terminal shows the file being extracted from its archive inside an isolated analysis environment. Extraction makes the file available for inspection but does not mean it was run.
+
+---
+
+### Figure 7: Extracted Sample Location
+
+![Terminal output confirming the extracted sample path](../../images/remcosrat/RemcosRAT_StaticAnalysis_06_Extracted_Sample_Path_35610632.png)
+
+**Figure 7:** Confirmed location of the extracted evidence file.
+
+The terminal identifies the extracted file's path so later commands examine the intended evidence. Keeping a known location makes the analysis repeatable and easier to audit.
+
+---
+
+### Figure 8: Extracted Sample SHA-256 Verification
+
+![Terminal output comparing expected and actual sample SHA-256 values](../../images/remcosrat/RemcosRAT_StaticAnalysis_07_SHA256_Verification_35610632.png)
+
+**Figure 8:** Successful fingerprint comparison for the extracted sample.
+
+The expected and calculated SHA-256 fingerprints match. This confirms that the extracted file remained unchanged during handling, not that it executed.
+
+---
+
+### Figure 9: Obfuscated VBScript Header
+
+![Hexadecimal and text view of the obfuscated VBScript header](../../images/remcosrat/RemcosRAT_StaticAnalysis_08_Obfuscated_VBS_Header_35610632.png)
+
+**Figure 9:** Disguised code visible near the start of the VBScript file.
+
+The file view shows repetitive, heavily disguised variable names and code intended to make human review more difficult. This obfuscation is an investigation clue, but it does not by itself prove malicious execution.
+
+---
+
+### Figure 10: Encoded URL Extraction
+
+![Terminal output extracting encoded internet-address data](../../images/remcosrat/RemcosRAT_StaticAnalysis_09_Base64_URL_Extraction_35610632.png)
+
+**Figure 10:** Encoded internet-address data isolated for safe analysis.
+
+The terminal shows an encoded internet address being located and extracted from the script without reproducing it here. Encoding can hide readable content from basic inspection, so isolating the string enables further review.
+
+---
+
+### Figure 11: Decoded Command-and-Control URL
+
+![Terminal output revealing the decoded external location](../../images/remcosrat/RemcosRAT_StaticAnalysis_10_Decoded_Command_and_Control_URL_35610632.png)
+
+**Figure 11:** Decoding reveals the external location referenced by the script.
+
+The output identifies the command-and-control URL, an internet address the script was designed to contact for additional content. Finding that address supports threat hunting but does not prove that a monitored device contacted it.
+
+---
+
+### Figure 12: Self-Copy Hash Verification
+
+![Terminal output comparing fingerprints of the original script and documented self-copy](../../images/remcosrat/RemcosRAT_StaticAnalysis_11_Self_Copy_Hash_Verification_35610632.png)
+
+**Figure 12:** Matching fingerprints for the original script and its analysis copy.
+
+The terminal compares the original file with a controlled copy representing the script's documented self-copy and shows matching fingerprints. The match supports the static-analysis finding that copying would preserve the file's content; it does not show that self-copying occurred on an endpoint.
+
+---
+
+### Figure 13: YARA String Candidates
+
+![Terminal output listing candidate strings for YARA detection](../../images/remcosrat/RemcosRAT_StaticAnalysis_12_YARA_String_Candidates_35610632.png)
+
+**Figure 13:** Distinctive strings selected as possible detection patterns.
+
+The output lists related script, PowerShell, Windows Management Instrumentation, download, and decoding clues found during analysis. Strong YARA rules use several related characteristics instead of relying on one common word.
+
+---
+
+### Figure 14: Custom YARA Rule
+
+![Terminal view of the custom YARA rule for the analyzed loader](../../images/remcosrat/RemcosRAT_StaticAnalysis_13_Custom_YARA_Rule_35610632.png)
+
+**Figure 14:** Custom YARA rule built from selected loader artifacts.
+
+YARA works like a pattern-matching checklist for suspicious files, and this rule combines several distinctive artifacts from the analyzed loader. The rule documents detection logic; the image alone does not show a match or a production detection.
+
+---
+
+### Figure 15: YARA Rule Test Results
+
+![Terminal output showing the custom YARA rule matching the authorized sample](../../images/remcosrat/RemcosRAT_StaticAnalysis_14_YARA_Rule_Test_Results_35610632.png)
+
+**Figure 15:** Test match and contributing strings from the authorized analysis sample.
+
+The custom rule matched the known sample and displayed the strings responsible for the match. This validates the rule against the authorized analysis sample, not a detection in a production environment.
+
+---
+
+### Figure 16: Microsoft Sentinel Threat-Intelligence Import
+
+![Microsoft Sentinel displaying imported RemcosRAT threat-intelligence records](../../images/remcosrat/RemcosRAT_Sentinel_15_Threat_Intelligence_Import_Validation_35610632.png)
+
+**Figure 16:** Imported warning signs displayed in Microsoft Sentinel Threat intelligence.
+
+Microsoft Sentinel lists the imported SHA-256, SHA-1, MD5, domain, and URL threat-intelligence records. The screenshot confirms successful import only; it does not prove that these warning signs were observed in endpoint, process, file, or network security records.
+
+---
+
 ## Recommended Analyst Workflow
 
 1. Review the authorized static-analysis source and its evidence limitations.
