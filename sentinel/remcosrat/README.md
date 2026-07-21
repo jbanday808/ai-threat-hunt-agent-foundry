@@ -134,9 +134,7 @@ An empty query result means no matching record was returned within that query's 
 
 ## Microsoft Sentinel Import Validation
 
-![Microsoft Sentinel threat-intelligence import validation](../../images/remcosrat/RemcosRAT_Sentinel_15_Threat_Intelligence_Import_Validation_35610632.png)
-
-The [Sentinel validation screenshot](../../images/remcosrat/RemcosRAT_Sentinel_15_Threat_Intelligence_Import_Validation_35610632.png) shows the Threat intelligence interface with five expected RemcosRAT records visible after import: three file hashes, one domain, and one URL.
+The Microsoft Sentinel import result is shown in [Figure 16](#figure-16-microsoft-sentinel-threat-intelligence-import). It displays five expected RemcosRAT threat-intelligence records after import: three file hashes, one domain, and one URL.
 
 ### What the Screenshot Proves
 
